@@ -1,4 +1,4 @@
-name: "Terraform Plan AWS"
+name: "Terraform Plan - AWS"
 
 on:
   pull_request:
