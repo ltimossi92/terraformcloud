@@ -38,19 +38,17 @@ jobs:
         run: terraform apply -auto-approve
 
       - name: Terraform Output
+        run: terraform output -raw instance_public_ip > inventory.ans
+  
+      - name: Sed IP Addr
         shell: bash
         run: |
-          terraform output -raw instance_public_ip > inventory.ans
-        continue-on-error: true
-      
-      - name: Terraform Output (JSON)
-        run: terraform output -raw -json instance_public_ip > intentory.test
-        continue-on-error: true
+          sed -E 's/.*([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+).*/\1/' inventory.ans > inventory.ans
 
       - name: Check Inventory File
         shell: bash
         run: |
-          cat inventory.ans && cat inventory.test
+          cat inventory.ans
         
       - name: List files on current DIR
         shell: bash
