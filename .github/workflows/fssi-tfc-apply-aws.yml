@@ -38,4 +38,18 @@ jobs:
         run: terraform apply -auto-approve
       
       - name: Terraform Output
-        run: terraform output -raw instance_public_ip
+        run: terraform output -raw instance_public_ip > inventory.ans
+  
+  ansible:
+    name: "Ansible Apply"
+    needs: terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Run Ansible Playbook Nginx
+        shell: bash
+        run: |
+          ansible-playbook -i inventory.ans -u ubuntu --private-key ./devops.pem ./deploy.yaml
