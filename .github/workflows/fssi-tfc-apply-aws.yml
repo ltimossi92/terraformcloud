@@ -40,13 +40,17 @@ jobs:
       - name: Terraform Output
         run: terraform output -raw instance_public_ip > inventory.ans
   
-  ansible:
-    name: "Ansible Apply"
-    needs: terraform
-    runs-on: ubuntu-latest
+      - name: Check Directory
+        shell: bash
+        run: |
+          pwd
 
-    steps:
-      - name: Checkout
+      - name: Check Inventory File
+        shell: bash
+        run: 
+          cat inventory.ans
+
+      - name: Checkout Ansible
         uses: actions/checkout@v3
       
       - name: Run Ansible Playbook Nginx
