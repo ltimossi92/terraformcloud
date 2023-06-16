@@ -1,4 +1,4 @@
-name: "Terraform Apply AWS"
+name: "Terraform Apply - AWS"
 
 on:
   push:
