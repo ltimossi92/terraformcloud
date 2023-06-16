@@ -38,4 +38,4 @@ jobs:
         run: terraform apply -auto-approve
       
       - name: Terraform Output
-        run: terraform output -json ipv4 > webserver.json
+        run: terraform output -raw instance_public_ip
