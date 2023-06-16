@@ -33,24 +33,19 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
 
-      - name: Terraform Output
-        run: terraform output -raw instance_public_ip > inventory.ans
         
       - name: Grep IP Addr
         shell: bash
         run: |
-          grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" inventory.ans > inventory.ans
+          grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" inventory.ans > inventory.aws
 
       - name: Check Inventory File
         shell: bash
         run: |
-          cat inventory.ans
+          cat inventory.aws
       
       - name: Run Ansible Playbook Nginx
         shell: bash
         run: |
-          ansible-playbook -i inventory.ans -u ubuntu --private-key ./devops.pem ./deploy.yaml
+          ansible-playbook -i inventory.aws -u ubuntu --private-key ./devops.pem ./deploy.yaml
