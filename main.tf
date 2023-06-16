@@ -59,5 +59,3 @@ resource "aws_instance" "nginx" {
     Name = var.instance_name
   }
 }
-
-output "public_ip" { value = "${aws_instance.nginx.public_ip}" }
