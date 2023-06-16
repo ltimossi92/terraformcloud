@@ -33,7 +33,12 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terraform apply -auto-approve
 
+      - name: Terraform Output
+        run: terraform output -raw instance_public_ip > inventory.ans
         
       - name: Grep IP Addr
         shell: bash
