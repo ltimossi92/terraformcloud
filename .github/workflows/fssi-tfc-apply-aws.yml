@@ -36,3 +36,6 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
+      
+      - name: Terraform Output
+        run: terraform output -json ipv4 > webserver.json
