@@ -56,6 +56,11 @@ jobs:
         run: |
           export ANSIBLE_HOST_KEY_CHECKING=False
       
+      - name: Permissions Private Key
+        shell: bash
+        run: |
+          chmod 600 ./devops.pem
+
       - name: Run Ansible Playbook Nginx
         shell: bash
         run: |
