@@ -44,16 +44,16 @@ resource "aws_instance" "nginx" {
   security_groups             = [aws_security_group.nginx.id]
   key_name                    = local.key_name
 
-  provisioner "remote-exec" {
-    inline = ["echo Done!"]
+  #provisioner "remote-exec" {
+   # inline = ["echo Done!"]
 
-    connection {
-      type        = "ssh"
-      user        = local.ssh_user
-      private_key = file(local.private_key_path)
-      host        = aws_instance.nginx.public_ip
-    }
-  }
+    #connection {
+    #  type        = "ssh"
+    #  user        = local.ssh_user
+    #  private_key = file(local.private_key_path)
+    #  host        = aws_instance.nginx.public_ip
+    #}
+  #}
 
   tags = {
     Name = var.instance_name
