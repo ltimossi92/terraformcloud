@@ -49,6 +49,7 @@ jobs:
         shell: bash
         run: |
           cat inventory.aws
+        continue-on-error: true
       
       - name: Run Ansible Playbook Nginx
         shell: bash
