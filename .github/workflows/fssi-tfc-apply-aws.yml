@@ -50,6 +50,11 @@ jobs:
         run: |
           cat inventory.aws
         continue-on-error: true
+
+      - name: Export Ansible VAR
+        shell: bash
+        run: |
+          export ANSIBLE_HOST_KEY_CHECKING=False
       
       - name: Run Ansible Playbook Nginx
         shell: bash
